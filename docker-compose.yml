@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  pgAdmin:
+    restart: always
+    image: dpage/pgadmin4
+    container_name: 'pgadmin-meal'
+    ports:
+      - '7300:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - pgadmin_meal:/var/lib/pgadmin
+  postgres:
+    restart: always
+    image: postgres
+    container_name: 'postgres-meal'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: mealuser
+      POSTGRES_PASSWORD: mealpassword
+      POSTGRES_DB: meal_db
+    volumes:
+      - pgvol_meal:/var/lib/postgresql/data
+volumes:
+  pgvol_meal:
+  pgadmin_meal: 
