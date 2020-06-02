@@ -1,0 +1,26 @@
+<section>
+  <div class="login-contain">
+    <form nz-form class="login-form" (ngSubmit)="submitForm($event, email.value, password.value)">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Porfavor ingresa tu nombre de email!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text"  nz-input placeholder="Email" #email />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Porfavor ingresa tu nombre de constraseña!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password"  nz-input  placeholder="Contraseña" #password/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control> 
+          <button nz-button class="login-form-button" [nzType]="'primary'">Entrar</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  </section>
+  

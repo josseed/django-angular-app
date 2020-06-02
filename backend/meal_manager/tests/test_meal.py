@@ -24,7 +24,6 @@ class MealTest(TestCase):
             email = "menu_test@gmail.cl",
             password = "pass",
         )
-        user.is_active = True
         user.save()
         payload = jwt_payload_handler(user)
         self.token = jwt_encode_handler(payload)
