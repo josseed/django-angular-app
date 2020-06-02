@@ -26,6 +26,9 @@ jobs:
         python -m pip install --upgrade pip
         cd backend
         pip install -r requirements.txt
+    - name: Creating DB
+      run: |
+        docker run -e "POSTGRES_USER=mealuser" -e "POSTGRES_PASSWORD=mealpassword" -e "POSTGRES_DB=meal_db" --name db postgres
     - name: Run Tests
       run: |
         cd backend
