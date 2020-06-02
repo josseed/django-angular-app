@@ -46,6 +46,9 @@ jobs:
         python manage.py migrate meal_manager
         python manage.py makemigrations
         python manage.py migrate
+      env:
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
     - name: Run Tests
       run: |
         cd backend
