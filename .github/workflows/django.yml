@@ -28,7 +28,8 @@ jobs:
         pip install -r requirements.txt
     - name: Creating DB
       run: |
-        docker run -e "POSTGRES_USER=mealuser" -e "POSTGRES_PASSWORD=mealpassword" -e "POSTGRES_DB=meal_db" --name db postgres -d
+        docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 meal_network
+        docker run -e "POSTGRES_USER=mealuser" -e "POSTGRES_PASSWORD=mealpassword" -e "POSTGRES_DB=meal_db" --network meal_network --name db postgres -d
     - name: Run Tests
       run: |
         cd backend
