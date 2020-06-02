@@ -56,7 +56,7 @@ DATABASES = {
         'NAME': 'meal_db',
         'USER': 'mealuser',
         'PASSWORD': 'mealpassword',
-        'HOST': '192.168.0.1',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
