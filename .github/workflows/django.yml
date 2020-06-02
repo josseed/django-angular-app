@@ -42,7 +42,7 @@ jobs:
     - name: Run Tests
       run: |
         cd backend
-        python manage_test.py test --verbosity 2
+        python manage.py test --verbosity 2
       env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
