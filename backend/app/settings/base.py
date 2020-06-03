@@ -12,6 +12,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_jwt',
     'meal_manager.apps.MealManagerConfig',
+    'slackapp.apps.SlackappConfig',
 ]
 
 MIDDLEWARE = [
