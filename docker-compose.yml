@@ -1,4 +1,9 @@
 version: '3.7'
+
+volumes:
+  pgvol_meal:
+  pgadmin_meal: 
+
 services:
   pgAdmin:
     restart: always
@@ -11,6 +16,9 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     volumes:
       - pgadmin_meal:/var/lib/pgadmin
+    networks:
+      meal-app:
+        ipv4_address: 57.0.0.2
   postgres:
     restart: always
     image: postgres
@@ -23,6 +31,24 @@ services:
       POSTGRES_DB: meal_db
     volumes:
       - pgvol_meal:/var/lib/postgresql/data
-volumes:
-  pgvol_meal:
-  pgadmin_meal: 
+    networks:
+      meal-app:
+          ipv4_address: 57.0.0.3
+  redis:
+    build: 
+      context: ./redis
+      dockerfile: ./Dockerfile
+    container_name: db-redis
+    command: bash -c "redis-server --bind 57.0.0.4"
+    ports:
+      - "6379:6379"
+    networks:
+      meal-app:
+        ipv4_address: 57.0.0.4
+
+networks:
+  meal-app:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 57.0.0.0/24
