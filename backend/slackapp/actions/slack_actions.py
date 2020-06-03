@@ -3,6 +3,12 @@ from django.conf import settings
 from slack.errors import SlackApiError
 
 class SlackActions:
+    """ This class has the actions for comunicate with the team in slack.
+    you can get the users of the workspace, and send this messages:
+    1) the menu list for today as direct message for everyone.
+    2) the order confirmation to a specific user.
+    3) a expired order time message.
+    """
 
     def __init__(self):
         self.client = WebClient(token=settings.BOT_USER_ACCESS_TOKEN)
@@ -35,8 +41,44 @@ class SlackActions:
                 if tries == 0:
                     keep = False
         return False
+    
+    def build_menu_list(self, meals):
+        text = ""
+        count = 1
+        for meal in meals:
+            text = text + ":diamond_shape_with_a_dot_inside: *Opción {}*: {} \n\n".format(count, meal)
+            count = count + 1
+        return text
 
-    def build_menu_message(self, menu, user_name, user_id):
+    def send_menu_users(self, meals):
+        users = self.get_users()
+        for user in users:
+            user_name = user['real_name']
+            user_id = user['id']
+            message = self.build_menu_message(meals, user_name, user_id)
+            sended = self.send_menu_by_user(message)
+            if not sended:
+                return False
+        return True
+
+    def build_selected_meal_message(self, meal, user_id):
+        return {
+            "channel": user_id,
+            "icon_emoji": ':shallow_pan_of_food:' ,
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": (
+                            "Tu pedido: *{}* a sido registrado, muchas gracias!".format(meal)
+                        ),
+                    }
+                },
+            ]
+        }
+    
+    def build_expired_order_message(self, user_id):
 
         return {
             "channel": user_id,
@@ -47,21 +89,46 @@ class SlackActions:
                     "text": {
                         "type": "mrkdwn",
                         "text": (
-                            "Hola! :wave: {} :blush:\n\n *les dejo el menú de hoy:*".format(user_name)
+                            "Los pedidos ya no están disponibles por hoy, lo sentimos."
+                        ),
+                    }
+                },
+            ]
+        }
+
+    def build_menu_message(self, meals, user_name, user_id):
+        
+        list_meals = self.build_menu_list(meals)
+        return {
+            "channel": user_id,
+            "icon_emoji": ':shallow_pan_of_food:' ,
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": (
+                            "Hola! :wave: {} :blush:\n\n * te dejo el menú de hoy:*".format(user_name)
+                        ),
+                    }
+                },
+                {"type": "divider"},
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": list_meals,
+                    },
+                },
+                {"type": "divider"},
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": (
+                            "Para responder mandarme tu opción. ej: 1 \n\n Si quieres pedir personalizado puedes agregar un comentario ej: '1 sin tomate'"
                         ),
                     }
                 }
             ]
         }
-
-
-    def send_menu_users(self):
-        users = self.get_users()
-        for user in users:
-            user_name = user['real_name']
-            user_id = user['id']
-            message = self.build_menu_message(None, user_name, user_id)
-            sended = self.send_menu_by_user(message)
-            if not sended:
-                return False
-        return True

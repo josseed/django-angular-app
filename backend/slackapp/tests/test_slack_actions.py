@@ -12,7 +12,11 @@ class ActionTest(TestCase):
         response = slackActions.get_users()
         self.assertEqual(isinstance(response, list), True)
     
-    def test_send_menus(self):
+    def test_send_menu(self):
         slackActions = SlackActions()
-        response = slackActions.send_menu_users()
+        meals = [
+            'pollo con arroz',
+            'pollo con papas'
+        ]
+        response = slackActions.send_menu_users(meals)
         self.assertEqual(response, True)
