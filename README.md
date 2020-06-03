@@ -4,3 +4,14 @@
 
 Esta aplicación permite preguntarle a los usuarios de un workspace de slack que tipo de comida desean.
 
+
+## Configuración bot slack ##
+
+* chat:write
+* im:history
+* im:write
+* users:read
+
+
+
+
