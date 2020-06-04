@@ -1,0 +1,25 @@
+
+<div class="new-menu">
+  <button nz-button class="button-new-menu" routerLink="create-menu" nzType="default"><i nz-icon nzType="plus"></i>Nuevo Menu</button>
+</div>
+
+<nz-table nzTitle="menus" #basicTable [nzData]="menus">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Fecha</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="!isLoading">
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+      <td>{{ data.date }}</td>
+      <td>
+        <a (click)="sendMenu(data.id)">Enviar</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="goToMenu(data.id)">Ver</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

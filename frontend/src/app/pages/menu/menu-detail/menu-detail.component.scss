@@ -1,0 +1,22 @@
+.new-meal {
+  margin-left: auto;
+  display: flex;
+  .button-new-meal {
+    border-radius: 35px;
+    margin-right: 20px;
+    font-size: 15px;
+    height: 40px;
+    background: #b8b4b4;
+    border-radius: 5px;
+    color: #fff;
+  
+    i {
+      font-size: initial;
+    }
+  
+    &:hover {
+      background: #1d8eff;
+  
+    }
+  }
+}

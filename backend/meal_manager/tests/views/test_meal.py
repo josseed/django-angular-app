@@ -7,13 +7,13 @@ import json
 
 class MealTest(TestCase):
     """ this test has the following attempts:
-    1) create a valid meal and expect a 201 status code.
-    2) trying to create a invalid meal and expect a 400 status code.
-    3) trying to create a meal has unauthorized user and expect a 401 status code.
-    4) trying to get the meal list has unauthorized user and expect a 401 status code.
-    5) trying to create two meals with the same name for the same menu and expect a 409 status code.
-    6) trying to create a meal for an unexist menu and expect a 404 code
-    7) create two meals and get the list of meals expecting a 200 status code and length 2.
+    - Create a valid meal and expect a 201 status code.
+    - Trying to create a invalid meal and expect a 400 status code.
+    - Trying to create a meal has unauthorized user and expect a 401 status code.
+    - Trying to get the meal list has unauthorized user and expect a 401 status code.
+    - Trying to create two meals with the same name for the same menu and expect a 409 status code.
+    - Trying to create a meal for an unexist menu and expect a 404 code.
+    - Create two meals and get the list of meals expecting a 200 status code and length 2.
     """
 
     client = Client()

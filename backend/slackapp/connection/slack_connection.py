@@ -2,14 +2,14 @@ from slack import WebClient
 from django.conf import settings
 from slack.errors import SlackApiError
 
-class SlackActions:
+class SlackConnection:
     """ This class has the actions for comunicate with the team in slack.
     you can get the users of the workspace, and send this messages:
-    1) the menu list for today as direct message for everyone.
-    2) the order confirmation to a specific user.
-    3) a expired order time message.
+    - Get a list of the users of the workspace.
+    - Send a meal list as direct message for everyone.
+    - Send a order confirmation to a specific user.
+    - Send a expired order time message.
     """
-
     def __init__(self):
         self.client = WebClient(token=settings.BOT_USER_ACCESS_TOKEN)
 
@@ -50,7 +50,7 @@ class SlackActions:
             count = count + 1
         return text
 
-    def send_menu_users(self, meals):
+    def send_menu_to_users(self, meals):
         users = self.get_users()
         for user in users:
             user_name = user['real_name']

@@ -7,12 +7,12 @@ import json
 
 class MenuTest(TestCase):
     """ this test has the following attempts:
-    1) create a valid menu and expect a 201 status code.
-    2) trying to create a invalid menu and expet a 400 status code.
-    3) trying to create a munu has unauthorized user and expect a 401 status code.
-    4) trying to get the menu list has unauthorized user and expect a 401 status code.
-    5) trying to create two menus for the same day and expect a 409 status code.
-    6) create two menus and get the list of menus expecting a 200 status code and length 2.
+    - Create a valid menu and expect a 201 status code.
+    - Trying to create a invalid menu and expet a 400 status code.
+    - Trying to create a munu has unauthorized user and expect a 401 status code.
+    - Trying to get the menu list has unauthorized user and expect a 401 status code.
+    - Trying to create two menus for the same day and expect a 409 status code.
+    - Create two menus and get the list of menus expecting a 200 status code and length 2.
     """
 
     client = Client()
