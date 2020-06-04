@@ -19,5 +19,5 @@ class ActionTest(TestCase):
             'pollo con arroz',
             'pollo con papas'
         ]
-        response = slack.send_menu_users(meals)
+        response = slack.send_menu_to_users(meals)
         self.assertEqual(response, True)
