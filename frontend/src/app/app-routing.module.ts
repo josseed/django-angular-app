@@ -2,17 +2,25 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
+import { IndexComponent } from './pages/index/index.component';
 
 const routes: Routes = [
-  { 
+
+  {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/welcome'
+    redirectTo: 'menus'
   },
   { 
-    path: 'welcome',
+    path: '',
+    component: IndexComponent,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
+    children: [
+      { 
+        path: 'menus',
+        loadChildren: () => import('./pages/menu/menu.module').then(m => m.MenuModule)
+      }
+    ]
   },
   {
     path: 'login',

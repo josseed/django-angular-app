@@ -1,0 +1,25 @@
+<div class="new-meal">
+  <button nz-button class="button-new-meal" (click)="showModal()" nzType="default"><i nz-icon nzType="plus"></i>Crear Almuerzo</button>
+</div>
+
+<nz-table *ngIf="!isLoading" nzTitle="Almuerzos" #basicTable [nzData]="menu.meals">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal *ngIf="isVisible" [(nzVisible)]="isVisible" nzTitle="Creando un almuerzo" (nzOnCancel)="handleCancel()" (nzOnOk)="createMeal()">
+  <nz-form-item>
+    <nz-form-label nzFor="note">Nombre</nz-form-label>
+    <nz-form-control  nzErrorTip="Por favor ingresa el nombre del almuerzo">
+      <input nz-input placeholder="Escribir nombre del almuerzo" [(ngModel)]="newMeal.name"/>
+    </nz-form-control>
+  </nz-form-item>
+</nz-modal>

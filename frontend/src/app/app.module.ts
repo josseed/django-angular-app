@@ -11,16 +11,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { es_ES } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, DatePipe } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { LoginComponent } from './pages/login/login.component';
+import { IndexComponent } from './pages/index/index.component';
 
 registerLocaleData(es);
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,10 @@ registerLocaleData(es);
     BrowserAnimationsModule,
     NgZorroAntdModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }],
+  providers: [
+    { provide: NZ_I18N, useValue: es_ES },
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

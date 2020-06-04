@@ -1,22 +1,23 @@
 from django.test import TestCase, Client
-from slackapp.actions.slack_actions import SlackActions
+from slackapp.connection.slack_connection import SlackConnection
 import json
 
 class ActionTest(TestCase):
     """ this test has the following attempts:
-    1) get workspace users
+    - get workspace users
+    - send menu to users in the workspace
     """
 
     def test_get_workspace_users(self):
-        slackActions = SlackActions()
-        response = slackActions.get_users()
+        slack = SlackConnection()
+        response = slack.get_users()
         self.assertEqual(isinstance(response, list), True)
     
     def test_send_menu(self):
-        slackActions = SlackActions()
+        slack = SlackConnection()
         meals = [
             'pollo con arroz',
             'pollo con papas'
         ]
-        response = slackActions.send_menu_users(meals)
+        response = slack.send_menu_to_users(meals)
         self.assertEqual(response, True)

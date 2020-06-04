@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
-from slackapp.actions.slack_actions import SlackActions
+from slackapp.connection.slack_connection import SlackConnection
 import slack
 import json
 
@@ -36,11 +36,7 @@ class EventHook(APIView):
             channel = event_msg['channel']
             response_msg = ":wave:, Hello <@%s>" % user
             print(json_dict)
-            client = slack.WebClient(token=settings.BOT_USER_ACCESS_TOKEN)
-            client.chat_postMessage(channel=channel, text=response_msg)
-            slackActions = SlackActions()
-            users = slackActions.get_users()
-            print(users)
+            
             return HttpResponse(status=200)
         
         return HttpResponse(status=200)

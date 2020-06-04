@@ -4,7 +4,7 @@
 
 export const Environment = {
   production: false,
-  api: 'http://localhost:8000/api/v1/meal-resources/'
+  api: 'http://localhost:8000/api/v1/meal-resources'
 };
 
 /*

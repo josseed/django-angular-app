@@ -6,11 +6,6 @@ class WorkerSerializer(serializers.ModelSerializer):
         model = Worker
         fields = '__all__'
 
-class MenuSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Menu
-        fields = '__all__'
-
 class MealSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meal
@@ -21,6 +16,12 @@ class MealSerializer(serializers.ModelSerializer):
         menu_id = self.context.get('menu_id')
         meal = Meal.objects.create(menu_id = menu_id, **validated_data)
         return meal
+
+class MenuSerializer(serializers.ModelSerializer):
+    meals = MealSerializer(read_only=True, many=True)
+    class Meta:
+        model = Menu
+        fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:

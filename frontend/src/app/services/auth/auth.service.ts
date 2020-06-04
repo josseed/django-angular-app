@@ -24,7 +24,7 @@ export class AuthService {
   });
 
   public loginUser(email: string, password: string): Observable<any> {
-    const url_api = `${this.api}auth/login`;
+    const url_api = `${this.api}/auth/login`;
     return this.http
       .post(url_api,{ email, password }, { headers: this.headers });
   }
@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   public isLogged(): boolean {
-    if (this.user.id) {
+    if (this.getToken()) {
       return true
     } else {
       return false

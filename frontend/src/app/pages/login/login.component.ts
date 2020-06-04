@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       this.authService.setUserFromJWT(data.token);
       this.authService.setToken(data.token);
       if (data) {
-        this.router.navigate(['/welcome']);
+        this.router.navigate(['/menus']);
       }
     }, error => {
       this.errorLogin('error');

@@ -40,4 +40,6 @@ class Order(models.Model):
     date = models.DateField()
     date_update = models.DateTimeField(auto_now=True)
     date_creation = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        unique_together = ('worker', 'date')
 
