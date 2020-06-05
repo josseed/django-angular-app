@@ -10,6 +10,7 @@ Desarrollado con Django como backend y Angular en el frontend. Enjoy :)
 ## Configuración del ambiente ##
 Es necesario tener instalado npm, python, pip, ngrok, docker y docker-compose para seguir estos pasos.
 Las herramientas descritas son faciles de encontrar en la web, por lo que si no las tienes, las puedes instalar siguiendo los tutoriales de las paginas oficiales.
+Este codigo esta testeado para python 3.6, 3.7 y 3.8 por lo cual se recomienda trabajar con estás versiones.
 Para levantar las bases de datos necesarias utilizaremos el archivo docker-compose.yml.
 el cual contiene una base de datos Redis, Postgres y PGadmin para poder ver nuestra DB Postgres.
 ```
@@ -32,7 +33,6 @@ npm i
 
 
 ## Configuraciones backend ##
-Este codigo esta testeado para python 3.8 por lo cual se recomienda mantener la versión.
 Si usaras distintas bases de datos, configura el archivo:
 app/settings/develop.py
 
