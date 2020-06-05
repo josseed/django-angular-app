@@ -99,7 +99,7 @@ class SendMenu(APIView):
             'menu_id': menu.id
         }
         send_menu = SendMenuTask(celery_dict)   
-        send_menu.run()
+        send_menu.delay()
         json_dict = {'detail': 'menu sended.'}
         return Response(json_dict, status=status.HTTP_200_OK)
 

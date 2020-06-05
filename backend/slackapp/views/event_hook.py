@@ -28,9 +28,8 @@ class EventHook(APIView):
                 return HttpResponse(status=204)
 
         if event_msg['type'] == 'message':
-            print(event_msg)
             mealBot = MealBot(event_msg)
-            mealBot.run()
+            mealBot.delay()
             return HttpResponse(status=200)
         
         return HttpResponse(status=200)
