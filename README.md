@@ -9,8 +9,11 @@ Desarrollado con Django como backend y Angular en el frontend. Enjoy :)
 
 ## Configuración del ambiente ##
 Es necesario tener instalado npm, python, pip, ngrok, docker y docker-compose para seguir estos pasos.
+
 Las herramientas descritas son faciles de encontrar en la web, por lo que si no las tienes, las puedes instalar siguiendo los tutoriales de las paginas oficiales.
+
 Este codigo esta testeado para python 3.6, 3.7 y 3.8 por lo cual se recomienda trabajar con estás versiones.
+
 Para levantar las bases de datos necesarias utilizaremos el archivo docker-compose.yml.
 el cual contiene una base de datos Redis, Postgres y PGadmin para poder ver nuestra DB Postgres.
 ```
@@ -43,6 +46,7 @@ python backend/manage.py migrate
 
 ## Configuración bot slack ##
 Primero deves crear una app de slack en el siguiente link: [Crear slack app](https://api.slack.com/apps?new_app=1)
+
 Luego lo debes invitar a tu workspace de testing con con los siguientes permisos:
 * chat:write
 * im:history
@@ -58,7 +62,7 @@ VERIFICATION_TOKEN =  [your-verification-token]
 BOT_USER_ACCESS_TOKEN = [your-bot-user-access-token]
 ```
 
-Configura tu bot a tu gusto con las siguientes configuraciones:
+Configura el bot a tu gusto con las siguientes configuraciones:
 
 ```
 AVAILABLE_START_HOUR = 8
@@ -74,6 +78,7 @@ python manage.py test
 ```
 
 ## Para levantar el backend ##
+necesitamos dos terminales para esto.
 ```
 cd backend
 python manage.py runserver  # en una terminal
@@ -97,9 +102,11 @@ cd 'path-ngrok'
 ## configurar el webhook del bot para que puedas recibir los mensajes de slack ##
 
 Este es el ultimo paso, dado que el webhook de slack solo funciona con https(para eso ngrok).
+
 Dirigete a https://api.slack.com/apps/'tu-app-id'/event-subscriptions?
 
 Activa los eventos y agrega la url correspondiente. 
+
 EJ: https://883379003fb5.ngrok.io/actions/event/hook/
 
 Reemplazar los numeros que te entrega ngrok.
