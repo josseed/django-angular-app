@@ -2,15 +2,16 @@
 
 [![build status](https://github.com/josseed/backend-test-zuniga/workflows/Django-CI/badge.svg)](https://github.com/josseed/backend-test-zuniga/actions) [![build status](https://github.com/josseed/backend-test-zuniga/workflows/Angular-CI/badge.svg)](https://github.com/josseed/backend-test-zuniga/actions)
 
-Esta aplicación permite preguntarle a los usuarios de un workspace de slack que tipo de comida desean.
-Visualizar los pedidos de los usuarios.
+Esta aplicación permite preguntarle a los usuarios de un workspace de slack que tipo de comida desean y visualizar sus pedidos.
+
+Todo esto gracias a un bot que permite la interacción con tu workspace!
 
 Desarrollado con Django como backend y Angular en el frontend. Enjoy :)
 
 ## Configuración del ambiente ##
 Es necesario tener instalado npm, python, pip, ngrok, docker y docker-compose para seguir estos pasos.
 
-Las herramientas descritas son faciles de encontrar en la web, por lo que si no las tienes, las puedes instalar siguiendo los tutoriales de las paginas oficiales.
+Las herramientas descritas son fáciles de encontrar en la web, por lo que si no las tienes, las puedes instalar siguiendo los tutoriales de las paginas oficiales.
 
 Este codigo esta testeado para python 3.6, 3.7 y 3.8 por lo cual se recomienda trabajar con estás versiones.
 
@@ -36,7 +37,7 @@ npm i
 
 
 ## Configuraciones backend ##
-Si usaras distintas bases de datos, configura el archivo:
+Si vas a usar bds distintas, configura el archivo:
 app/settings/develop.py
 
 ```
@@ -45,7 +46,7 @@ python backend/manage.py migrate
 ```
 
 ## Configuración bot slack ##
-Primero deves crear una app de slack en el siguiente link: [Crear slack app](https://api.slack.com/apps?new_app=1)
+Primero debes crear una app de slack en el siguiente link: [Crear slack app](https://api.slack.com/apps?new_app=1)
 
 Luego lo debes invitar a tu workspace de testing con con los siguientes permisos:
 * chat:write
