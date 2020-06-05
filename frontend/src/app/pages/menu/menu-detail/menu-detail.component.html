@@ -2,15 +2,24 @@
   <button nz-button class="button-new-meal" (click)="showModal()" nzType="default"><i nz-icon nzType="plus"></i>Crear Almuerzo</button>
 </div>
 
-<nz-table *ngIf="!isLoading" nzTitle="Almuerzos" #basicTable [nzData]="menu.meals">
+<nz-table *ngIf="!isLoading" nzTitle="Almuerzos" #editRowTable [nzData]="menu.meals">
   <thead>
     <tr>
       <th>Nombre</th>
+      <th>Acción</th>
     </tr>
   </thead>
   <tbody >
-    <tr *ngFor="let data of basicTable.data">
-      <td>{{ data.name }}</td>
+    <tr *ngFor="let data of editRowTable.data">
+      <td>
+        <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
+          {{ data.name }}
+        </div>
+        <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
+      </td>
+      <td>
+        <a nz-popconfirm nzPopconfirmTitle="Seguro que quieres eliminar?" (nzOnConfirm)="deleteRow(data.id)">Eliminar</a>
+      </td>
     </tr>
   </tbody>
 </nz-table>

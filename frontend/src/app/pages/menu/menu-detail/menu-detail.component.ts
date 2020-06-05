@@ -5,6 +5,7 @@ import { MenuService } from 'src/app/services/menu/menu.service';
 import { Menu } from 'src/app/models/menu';
 import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal/meal.service';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-menu-detail',
@@ -12,18 +13,20 @@ import { MealService } from 'src/app/services/meal/meal.service';
   styleUrls: ['./menu-detail.component.scss']
 })
 export class MenuDetailComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private menuService: MenuService,
+    private mealService: MealService,
+    private notification: NzNotificationService
+  ) { }
+  
   private routeSub: Subscription;
   private menuId: number;
   public newMeal: Meal;
   public menu: Menu;
   public isLoading: boolean = true;
   public isVisible: boolean = false;
-
-  constructor(
-    private route: ActivatedRoute,
-    private menuService: MenuService,
-    private mealService: MealService
-  ) { }
+  public editId: number | null = null;
 
   public ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
@@ -59,8 +62,42 @@ export class MenuDetailComponent implements OnInit {
   }
 
   public handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
+  }
+
+  public deleteRow(id: number): void {
+    this.mealService.deleteMeal(this.menu.id, id).subscribe(data => {
+      this.mealDeleted('success');
+      this.menu.meals = this.menu.meals.filter(meal => meal.id !== id);
+    });
+  }
+
+  public startEdit(id: number): void {
+    this.editId = id;
+  }
+
+  public stopEdit(): void {
+    let mealEdited = this.menu.meals.find(meal => meal.id === this.editId);
+    this.mealService.editMeal(this.menu.id, this.editId, mealEdited).subscribe(data => {
+      this.mealEditaded('success');
+    })
+    this.editId = null;
+  }
+
+  private mealEditaded(type: string): void {
+    this.notification.create(
+      type,
+      'Success:',
+      'Almuerzo editado correctamente.'
+    );
+  }
+
+  private mealDeleted(type: string): void {
+    this.notification.create(
+      type,
+      'Success:',
+      'Almuerzo eliminado correctamente.'
+    );
   }
 
 }

@@ -6,7 +6,25 @@ class WorkerSerializer(serializers.ModelSerializer):
         model = Worker
         fields = '__all__'
 
+class OrderSerializer(serializers.ModelSerializer):
+    worker = WorkerSerializer(read_only=True)
+    class Meta:
+        model = Order
+        fields = '__all__'
+
 class MealSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Meal
+        fields = '__all__'
+        read_only_fields = ('menu',)
+    
+    def create(self, validated_data):
+        menu_id = self.context.get('menu_id')
+        meal = Meal.objects.create(menu_id = menu_id, **validated_data)
+        return meal
+
+class FullMealSerializer(serializers.ModelSerializer):
+    orders = OrderSerializer(read_only=True, many=True)
     class Meta:
         model = Meal
         fields = '__all__'
@@ -23,7 +41,9 @@ class MenuSerializer(serializers.ModelSerializer):
         model = Menu
         fields = '__all__'
 
-class OrderSerializer(serializers.ModelSerializer):
+class FullMenuSerializer(serializers.ModelSerializer):
+    meals = FullMealSerializer(read_only=True, many=True)
     class Meta:
-        model = Order
+        model = Menu
         fields = '__all__'
+

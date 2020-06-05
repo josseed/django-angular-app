@@ -1,0 +1,62 @@
+
+  <div class="content">
+    <div class="spin" *ngIf="isLoading == true">
+      <nz-spin nzSimple [nzSize]="'large'" nzTip="Obteniendo menu..."></nz-spin>
+    </div>
+    <div class="validated" *ngIf="isLoading == false">
+      <nz-table *ngIf="!isLoading" nzTitle="Almuerzos" #basicTable [nzData]="menu.meals" >
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>pedidos</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let data of basicTable.data">
+            <td>
+              {{ data.name }}
+            </td>
+            <td>
+              {{ data.orders.length }}
+            </td>
+            <td>
+              <a (click)="showOrders(data.id)">Mostrar pedidos</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <nz-card class="card" nzHoverable *ngIf="errorInGetMenu" >
+        <nz-list nzBordered nzSize="small">
+          <p>error al obtener el menu de hoy.</p>
+        </nz-list>
+      </nz-card>
+    </div>
+  </div>
+
+  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" (nzOnCancel)="handleOk()" [nzFooter]="modalFooter">
+      <ng-template #modalTitle>
+        Pedidos
+      </ng-template>
+
+      <ng-template #modalContent>
+        <nz-table #basicTable [nzData]="orders">
+          <thead>
+            <tr>
+              <th>nombre</th>
+              <th>personalizado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <td>{{data.worker.name}}</td>
+              <td>{{data.customization}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-template>
+
+      <ng-template #modalFooter>
+        <button nz-button nzType="primary" (click)="handleOk()">Ok</button>
+      </ng-template>
+    </nz-modal>

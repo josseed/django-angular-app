@@ -1,0 +1,16 @@
+<div class="background">
+  <div class="content">
+    <div class="spin" *ngIf="isLoading == true">
+      <nz-spin nzSimple [nzSize]="'large'" nzTip="Obteniendo menu..."></nz-spin>
+    </div>
+    <div class="validated" *ngIf="isLoading == false">
+      <nz-card class="card" nzHoverable *ngIf="!errorInGetMenu">
+        <nz-list nzBordered nzSize="small">
+          <nz-list-header>Menu de hoy</nz-list-header>
+          <nz-list-item *ngFor="let meal of menu.meals">{{meal.name}}</nz-list-item>
+        </nz-list>
+      </nz-card>
+      <h3 *ngIf="errorInGetMenu">No pudimos traer el menu para hoy, lo sentimos :(.</h3>
+    </div>
+  </div>
+</div>

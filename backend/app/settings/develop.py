@@ -6,7 +6,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
-URL_VIEW_MENU = 'http://localhost:4200/menu/'
+URL_VIEW_MENU = 'http://localhost:4200/daily-menu?uuid='
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200',

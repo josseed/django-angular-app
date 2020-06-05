@@ -17,9 +17,14 @@ urlpatterns = [
         name = 'menu_list'
     ),
     path(
+        'menus/current-menu',
+        menu.CurrentMenu.as_view(),
+        name = 'current_menu'
+    ),
+    path(
         'menus/current-menu/<uuid:uuid>',
         menu.CurrentMenuByUUID.as_view(),
-        name = 'current-menu-by-uuid'
+        name = 'current_menu_by_uuid'
     ),
     path(
         'menus/<int:menu_id>',
