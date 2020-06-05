@@ -94,7 +94,7 @@ cd 'path-ngrok'
 ./ngork http 8000
 ```
 
-## configurar el webhook del bot ##
+## configurar el webhook del bot para que puedas recibir los mensajes de slack ##
 
 Este es el ultimo paso, dado que el webhook de slack solo funciona con https(para eso ngrok).
 Dirigete a https://api.slack.com/apps/'tu-app-id'/event-subscriptions?
