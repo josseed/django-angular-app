@@ -7,33 +7,6 @@ Visualizar los pedidos de los usuarios.
 
 Desarrollado con Django como backend y Angular en el frontend. Enjoy :)
 
-
-## Configuración bot slack ##
-Primero deves crear una app de slack en el siguiente link: [Crear slack app](https://api.slack.com/apps?new_app=1)
-Luego lo debes invitar a tu workspace de testing con con los siguientes permisos:
-* chat:write
-* im:history
-* im:write
-* users:read
-
-
-Modifica las siguientes configuraciones con tu propia app de slack:
-```
-CLIENT_ID = [your-id]
-CLIENT_SECRET = [your-secret]
-VERIFICATION_TOKEN =  [your-verification-token]
-BOT_USER_ACCESS_TOKEN = [your-bot-user-access-token]
-```
-
-Configura tu bot a tu gusto con las siguientes configuraciones:
-
-```
-AVAILABLE_START_HOUR = 8
-AVAILABLE_END_HOUR = 11
-TIME_ZONE_BOT = 'America/Santiago'
-```
-Estas configuraciones se encuentran en backend/app/settings/develop.py
-
 ## Configuración del ambiente ##
 Es necesario tener instalado npm, python, pip, ngrok, docker y docker-compose para seguir estos pasos.
 Las herramientas descritas son faciles de encontrar en la web, por lo que si no las tienes, las puedes instalar siguiendo los tutoriales de las paginas oficiales.
@@ -68,6 +41,31 @@ python backend/manage.py makemigrations
 python backend/manage.py migrate
 ```
 
+## Configuración bot slack ##
+Primero deves crear una app de slack en el siguiente link: [Crear slack app](https://api.slack.com/apps?new_app=1)
+Luego lo debes invitar a tu workspace de testing con con los siguientes permisos:
+* chat:write
+* im:history
+* im:write
+* users:read
+
+
+Modifica las siguientes configuraciones con tu propia app de slack:
+```
+CLIENT_ID = [your-id]
+CLIENT_SECRET = [your-secret]
+VERIFICATION_TOKEN =  [your-verification-token]
+BOT_USER_ACCESS_TOKEN = [your-bot-user-access-token]
+```
+
+Configura tu bot a tu gusto con las siguientes configuraciones:
+
+```
+AVAILABLE_START_HOUR = 8
+AVAILABLE_END_HOUR = 11
+TIME_ZONE_BOT = 'America/Santiago'
+```
+Estas configuraciones se encuentran en backend/app/settings/develop.py
 
 ## Para testear el backend ##
 ```
