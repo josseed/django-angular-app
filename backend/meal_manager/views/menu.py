@@ -2,11 +2,13 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
-from meal_manager.models import Menu
+from meal_manager.models import Menu, Worker
+from rest_framework.permissions import AllowAny
 from meal_manager.serializers import MenuSerializer
 from rest_framework import status
 from django.core import serializers
 from meal_manager.tasks.send_menu import SendMenuTask
+from datetime import date
 
 class MenuList(APIView):
     """
@@ -82,3 +84,33 @@ class SendMenu(APIView):
         send_menu.run()
         json_dict = {'detail': 'menu sended.'}
         return Response(json_dict, status=status.HTTP_200_OK)
+
+class CurrentMenuByUUID(APIView):
+    """
+    Get the menu for the current day if is a valid uuid for any worker.
+    """
+    permission_classes = (AllowAny,)
+
+    def check_worker_by_uuid(self, uuid):
+        try:
+            Worker.objects.get(unique_uuid = uuid)
+        except Worker.DoesNotExist:
+            raise Http404
+    
+    def get_current_menu(self):
+        try:
+            today = date.today().strftime("%Y-%m-%d")
+            menu = Menu.objects.get(date = today)
+            return menu
+        except Menu.DoesNotExist:
+            raise Http404
+
+    def get(self, request, uuid, format=None):
+        if request.user.is_anonymous:
+            self.check_worker_by_uuid(uuid)
+        
+        menu = self.get_current_menu()
+        serializer = MenuSerializer(menu)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+

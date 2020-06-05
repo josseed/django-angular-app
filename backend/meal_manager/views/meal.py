@@ -51,3 +51,44 @@ class MealList(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+
+class MealDetail(APIView):
+    """
+    get/update/delete a specific meal
+    """    
+    def get_meal(self, menu_id, meal_id):
+        try:
+            meal = Meal.objects.get(pk = meal_id, menu_id = menu_id)
+            return meal
+        except Meal.DoesNotExist:
+            raise Http404
+
+    def get_menu(self, menu_id):
+        try:
+            menu = Menu.objects.get(pk = menu_id)
+            return menu
+        except Menu.DoesNotExist:
+            raise Http404
+
+    def get(self, request, menu_id, meal_id, format=None):
+        menu = self.get_menu(menu_id)
+        meal = self.get_meal(menu.id, meal_id)
+        serializer = MealSerializer(meal)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+    
+    def patch(self, request, menu_id, meal_id, format=None):
+        menu = self.get_menu(menu_id)
+        meal = self.get_meal(menu.id, meal_id)
+        serializer = MealSerializer(meal, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, menu_id, meal_id, format=None):
+        menu = self.get_menu(menu_id)
+        meal = self.get_meal(menu.id, meal_id)
+        meal.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
+    
+
