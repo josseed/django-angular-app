@@ -2,11 +2,13 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
-from meal_manager.models import Menu
-from meal_manager.serializers import MenuSerializer
+from meal_manager.models import Menu, Worker
+from rest_framework.permissions import AllowAny
+from meal_manager.serializers import MenuSerializer, FullMenuSerializer
 from rest_framework import status
 from django.core import serializers
-from meal_manager.tasks.send_menu import send_menu
+from meal_manager.tasks.send_menu import SendMenuTask
+from datetime import date
 
 class MenuList(APIView):
     """
@@ -56,6 +58,24 @@ class MenuDetail(APIView):
         menu = self.get_menu(menu_id)
         serializer = MenuSerializer(menu)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CurrentMenu(APIView):
+    """
+    Get current menu with all the relations
+    """
+
+    def get_current_menu(self):
+        try:
+            today = date.today().strftime("%Y-%m-%d")
+            menu = Menu.objects.get(date = today)
+            return menu
+        except Menu.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, format=None):
+        menu = self.get_current_menu()
+        serializer = FullMenuSerializer(menu)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 
 class SendMenu(APIView):
@@ -77,7 +97,36 @@ class SendMenu(APIView):
             return Response(json_dict, status=status.HTTP_409_CONFLICT)
         celery_dict = {
             'menu_id': menu.id
-        }   
-        send_menu.delay(celery_dict)
+        }
+        send_menu = SendMenuTask(celery_dict)   
+        send_menu.delay()
         json_dict = {'detail': 'menu sended.'}
         return Response(json_dict, status=status.HTTP_200_OK)
+
+class CurrentMenuByUUID(APIView):
+    """
+    Get the menu for the current day if is a valid uuid for any worker.
+    """
+    permission_classes = (AllowAny,)
+
+    def check_worker_by_uuid(self, uuid):
+        try:
+            Worker.objects.get(unique_uuid = uuid)
+        except Worker.DoesNotExist:
+            raise Http404
+    
+    def get_current_menu(self):
+        try:
+            today = date.today().strftime("%Y-%m-%d")
+            menu = Menu.objects.get(date = today)
+            return menu
+        except Menu.DoesNotExist:
+            raise Http404
+
+    def get(self, request, uuid, format=None):
+        self.check_worker_by_uuid(uuid)
+        menu = self.get_current_menu()
+        serializer = MenuSerializer(menu)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+

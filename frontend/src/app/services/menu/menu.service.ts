@@ -16,9 +16,13 @@ export class MenuService {
     this.api = Environment.api;
   }
 
-  headers: HttpHeaders = new HttpHeaders({
+  private headers: HttpHeaders = new HttpHeaders({
     "Content-Type": "application/json",
     "Authorization": "JWT " + localStorage.getItem("accessToken")
+  });
+
+  private headersWithoutAuth: HttpHeaders = new HttpHeaders({
+    "Content-Type": "application/json"
   });
 
   public getMenus(): Observable<any> {
@@ -41,6 +45,15 @@ export class MenuService {
     return this.http.post(url_api, {}, { headers: this.headers });
   }
 
+  public getCurrentMenuByUUID(uuid: any): Observable<any> {
+    const url_api = `${this.api}/menus/current-menu/${uuid}`;
+    return this.http.get(url_api, { headers: this.headersWithoutAuth });
+  }
+
+  public getCurrentMenu(): Observable<any> {
+    const url_api = `${this.api}/menus/current-menu`;
+    return this.http.get(url_api, { headers: this.headers });
+  }
 }
 
 

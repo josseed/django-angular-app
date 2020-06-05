@@ -33,6 +33,14 @@
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
         </span>
+        <a nz-dropdown [nzDropdownMenu]="menu">
+          <nz-avatar class="user-avatar" nzText="Nora"></nz-avatar>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul class="dropdown-user" nz-menu nzSelectable>
+            <li nz-menu-item (click)='logOut()'>Cerrar Sesión</li>
+          </ul>
+        </nz-dropdown-menu>
       </div>
     </nz-header>
     <nz-content>

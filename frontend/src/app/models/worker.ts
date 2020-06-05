@@ -1,18 +1,12 @@
-import { Order } from './order';
-
-export class Meal {
+export class Worker {
 
   public id: number;
   public name: string;
-  public orders: Order[];
 
   constructor(data: any = null) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
-      if (data.orders) {
-        this.orders = data.orders.map(order => new Order(order));
-      }
     }
   }
 

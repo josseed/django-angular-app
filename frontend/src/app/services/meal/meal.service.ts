@@ -30,6 +30,17 @@ export class MealService {
     const url_api = `${this.api}/menus/${menuId}/meals`;
     return this.http.post(url_api, meal, { headers: this.headers });
   }
+
+  public editMeal(menuId: number, mealId: number, meal: Meal): Observable<any> {
+    const url_api = `${this.api}/menus/${menuId}/meals/${mealId}`;
+    return this.http.patch(url_api, meal, { headers: this.headers });
+  }
+
+  public deleteMeal(menuId: number, mealId: number): Observable<any> {
+    const url_api = `${this.api}/menus/${menuId}/meals/${mealId}`;
+    return this.http.delete(url_api, { headers: this.headers });
+  }
+
 }
 
 

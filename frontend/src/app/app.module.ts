@@ -15,6 +15,8 @@ import { registerLocaleData, DatePipe } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { LoginComponent } from './pages/login/login.component';
 import { IndexComponent } from './pages/index/index.component';
+import { DailyMenuComponent } from './pages/daily-menu/daily-menu.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 registerLocaleData(es);
 
@@ -22,7 +24,9 @@ registerLocaleData(es);
   declarations: [
     AppComponent,
     LoginComponent,
-    IndexComponent
+    IndexComponent,
+    DailyMenuComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

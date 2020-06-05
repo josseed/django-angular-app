@@ -142,3 +142,69 @@ class MealTest(TestCase):
             HTTP_AUTHORIZATION = 'JWT ' + self.token
         )
         self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+
+    def test_get_meal_by_id(self):
+
+        meal = Meal.objects.create(
+            name = "test name",
+            menu_id = self.menu_id
+        )
+        
+        response = self.client.get(
+            reverse(
+                'meal_detail',
+                kwargs = {
+                    'menu_id': self.menu_id,
+                    'meal_id': meal.id
+                }
+            ),
+            content_type='application/json',
+            HTTP_AUTHORIZATION = 'JWT ' + self.token
+        )
+        meal_response = json.loads(response.content)
+        self.assertEqual(meal_response['name'], meal.name)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
+    def test_edit_meal_by_id(self):
+
+        meal = Meal.objects.create(
+            name = "test name",
+            menu_id = self.menu_id
+        )
+        payload = {
+            'name': 'new name'
+        }
+        response = self.client.patch(
+            reverse(
+                'meal_detail',
+                kwargs = {
+                    'menu_id': self.menu_id,
+                    'meal_id': meal.id
+                }
+            ),
+            data=json.dumps(payload),
+            content_type='application/json',
+            HTTP_AUTHORIZATION = 'JWT ' + self.token
+        )
+        meal_response = json.loads(response.content)
+        self.assertEqual(meal_response['name'], payload['name'])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_delete_meal_by_id(self):
+
+        meal = Meal.objects.create(
+            name = "test name",
+            menu_id = self.menu_id
+        )
+        response = self.client.delete(
+            reverse(
+                'meal_detail',
+                kwargs = {
+                    'menu_id': self.menu_id,
+                    'meal_id': meal.id
+                }
+            ),
+            content_type='application/json',
+            HTTP_AUTHORIZATION = 'JWT ' + self.token
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

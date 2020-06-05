@@ -17,6 +17,16 @@ urlpatterns = [
         name = 'menu_list'
     ),
     path(
+        'menus/current-menu',
+        menu.CurrentMenu.as_view(),
+        name = 'current_menu'
+    ),
+    path(
+        'menus/current-menu/<uuid:uuid>',
+        menu.CurrentMenuByUUID.as_view(),
+        name = 'current_menu_by_uuid'
+    ),
+    path(
         'menus/<int:menu_id>',
         menu.MenuDetail.as_view(),
         name = 'menu_detail'
@@ -33,8 +43,8 @@ urlpatterns = [
     ),
     path(
         'menus/<int:menu_id>/meals/<int:meal_id>',
-        meal.MealList.as_view(),
-        name = 'meal_list'
+        meal.MealDetail.as_view(),
+        name = 'meal_detail'
     ),
     path(
         'menus/<int:menu_id>/meals/<int:meal_id>/orders',

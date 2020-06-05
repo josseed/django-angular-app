@@ -6,7 +6,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
-URL_VALIDATION_MAIL = 'http://localhost:4200/validate-email'
+URL_VIEW_MENU = 'http://localhost:4200/daily-menu?uuid='
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200',
@@ -61,11 +61,17 @@ DATABASES = {
     }
 }
 
-#slack credentials
+#slack definitions
 CLIENT_ID = '1183681473328.1160708526483'
 CLIENT_SECRET = 'a9c0737feaf51d502e6f59107c3802a2'
 VERIFICATION_TOKEN = 'Wdnuu0jFG1IYABtYpNFstYcR'
 BOT_USER_ACCESS_TOKEN = 'xoxb-1183681473328-1166686218532-3SFXtMGfQe0uHJK7go3wjCzp'
+TEST_USER_SLACK_ID = 'U014930FVFZ'
+
+#bot definitions
+AVAILABLE_START_HOUR = 8
+AVAILABLE_END_HOUR = 11
+TIME_ZONE_BOT = 'America/Santiago'
 
 
 # Celery application definition

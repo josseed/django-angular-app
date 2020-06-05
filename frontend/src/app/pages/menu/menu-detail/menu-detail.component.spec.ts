@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MenuDetailComponent } from './menu-detail.component';
+
 
 describe('MenuDetailComponent', () => {
   let component: MenuDetailComponent;
@@ -19,7 +19,5 @@ describe('MenuDetailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+
 });

@@ -11,5 +11,5 @@ def create_nora_user():
                 password = "nora"
             )
             print('user nora created.')    
-    except:
+    except BaseException:
         print('creation user nora failed.')

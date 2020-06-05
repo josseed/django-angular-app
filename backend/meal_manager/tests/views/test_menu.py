@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
-from meal_manager.models import User, Menu
+from meal_manager.models import User, Menu, Worker
 from rest_framework import status
+from datetime import date
 from django.urls import reverse
 from meal_manager.utils.jwt_token import jwt_payload_handler, jwt_encode_handler
 import json
@@ -101,3 +102,42 @@ class MenuTest(TestCase):
             HTTP_AUTHORIZATION = 'JWT ' + self.token
         )
         self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+    
+    def test_get_current_menu_by_uuid(self):
+        today = date.today().strftime("%Y-%m-%d")
+        Menu.objects.create(
+            name = "menu test uuid",
+            date = today
+        )
+        worker = Worker.objects.create(
+            name = "worker test uuid",
+            slack_id = 'any-slack-id'
+        )
+        response = self.client.get(
+            reverse(
+                'current_menu_by_uuid',
+                kwargs = {
+                    'uuid': worker.unique_uuid
+                }
+            ),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
+    def test_get_current_menu(self):
+        today = date.today().strftime("%Y-%m-%d")
+        Menu.objects.create(
+            name = "menu test uuid",
+            date = today
+        )
+        worker = Worker.objects.create(
+            name = "worker test uuid",
+            slack_id = 'any-slack-id'
+        )
+        response = self.client.get(
+            reverse('current_menu'),
+            content_type='application/json',
+            HTTP_AUTHORIZATION = 'JWT ' + self.token
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
