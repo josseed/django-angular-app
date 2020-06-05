@@ -6,7 +6,7 @@ from meal_manager.models import Menu
 from meal_manager.serializers import MenuSerializer
 from rest_framework import status
 from django.core import serializers
-from meal_manager.tasks.send_menu import send_menu
+from meal_manager.tasks.send_menu import SendMenuTask
 
 class MenuList(APIView):
     """
@@ -77,7 +77,8 @@ class SendMenu(APIView):
             return Response(json_dict, status=status.HTTP_409_CONFLICT)
         celery_dict = {
             'menu_id': menu.id
-        }   
-        send_menu.delay(celery_dict)
+        }
+        send_menu = SendMenuTask(celery_dict)   
+        send_menu.run()
         json_dict = {'detail': 'menu sended.'}
         return Response(json_dict, status=status.HTTP_200_OK)

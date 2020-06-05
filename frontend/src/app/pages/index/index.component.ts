@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'index-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class IndexComponent {
   isCollapsed = false;
+
+  constructor(private authService: AuthService) {}
+
+  public logOut(): void {
+    this.authService.logoutUser();
+  }
 }

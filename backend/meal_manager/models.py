@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from meal_manager.utils.user_manager import CustomUserManager
 from django.utils.translation import gettext_lazy as _
+import uuid
 
 class User(AbstractUser):
     username = None
@@ -15,6 +16,7 @@ class User(AbstractUser):
 class Worker(models.Model):
     name = models.CharField(max_length=100)
     slack_id = models.TextField()
+    unique_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     active = models.BooleanField(default=True)
     date_update = models.DateTimeField(auto_now=True)
     date_creation = models.DateTimeField(auto_now_add=True)

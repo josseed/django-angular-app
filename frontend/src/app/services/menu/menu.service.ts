@@ -40,7 +40,6 @@ export class MenuService {
     const url_api = `${this.api}/menus/${id}/send-menu`;
     return this.http.post(url_api, {}, { headers: this.headers });
   }
-
 }
 
 

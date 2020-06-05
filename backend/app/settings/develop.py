@@ -6,7 +6,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
-URL_VALIDATION_MAIL = 'http://localhost:4200/validate-email'
+URL_VIEW_MENU = 'http://localhost:4200/menu/'
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200',

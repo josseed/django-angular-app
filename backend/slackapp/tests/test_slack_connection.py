@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from slackapp.connection.slack_connection import SlackConnection
+from slackapp.bot.connection.slack_connection import SlackConnection
 import json
 
 class ActionTest(TestCase):
@@ -13,11 +13,16 @@ class ActionTest(TestCase):
         response = slack.get_users()
         self.assertEqual(isinstance(response, list), True)
     
-    def test_send_menu(self):
+    def test_send_menu_action(self):
+
+
         slack = SlackConnection()
+        users = slack.get_users()
+        for user in users:
+            user['url'] = 'http://test_url.cl'
         meals = [
-            'pollo con arroz',
-            'pollo con papas'
+            'chicken with potatoes',
+            'vegan mix'
         ]
-        response = slack.send_menu_to_users(meals)
+        response = slack.send_menu_to_users(users, meals)
         self.assertEqual(response, True)
