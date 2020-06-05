@@ -26,9 +26,8 @@ def create_order(order_dict: dict):
         raise Exception('worker_id is required in order_dict')
     if not order_dict.get('meal_position'):
         raise Exception('meal_position is required in order_dict')
-    else:
-        if not isinstance(order_dict.get('meal_position'), int):
-           raise Exception('meal_position value must be a number.') 
+    if not isinstance(order_dict.get('meal_position'), int):
+        raise Exception('meal_position value must be a number.') 
 
     #get worker
     try:
