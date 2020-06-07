@@ -1,6 +1,8 @@
 ## MEAL DELIVERY APP
 
-[![build status](https://github.com/josseed/backend-test-zuniga/workflows/Django-CI/badge.svg)](https://github.com/josseed/backend-test-zuniga/actions) [![build status](https://github.com/josseed/backend-test-zuniga/workflows/Angular-CI/badge.svg)](https://github.com/josseed/backend-test-zuniga/actions) ![Alt text](./backend/coverage.svg)
+[![build status](https://github.com/josseed/backend-test-zuniga/workflows/Django-CI/badge.svg)](https://github.com/josseed/backend-test-zuniga/actions) [![build status](https://github.com/josseed/backend-test-zuniga/workflows/Angular-CI/badge.svg)](https://github.com/josseed/backend-test-zuniga/actions)
+
+backend: ![Alt text](./backend/coverage.svg)
 
 Esta aplicación permite preguntarle a los usuarios de un workspace de slack que tipo de comida desean y visualizar sus pedidos.
 
